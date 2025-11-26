@@ -1,0 +1,66 @@
+﻿Variable,Value
+Day units Current kWh,291952
+Night units Current kWh,54397.7
+Red units Current kWh,45764.5
+Amber units Current kWh,170972.4
+Green units Current kWh,129612.8
+Capacity Current KVA,360
+Day units Optima kWh,246516.1
+Night units Optima kWh,104882.0333
+Red units Optima kWh,328.6
+Amber units Optima kWh,170972.4
+Green units Optima kWh,180097.1333
+Capacity Optima KVA,360
+Day Current P/kWh,21.36
+Night Current P/kWh,16.71
+Peak Current P/kWh,0.00
+Standing charge Current P/D,6104.05
+Availability Current P/KVA/D,10.12
+CCL Current P/kWh,0.78
+Day Optima P/kWh,19.63
+Night Optima P/kWh,17.15
+Peak Optima P/kWh,32.85
+Standing charge Optima P/D,7589.95
+Availability Optima P/KVA/D,10.03
+CCL Optima P/kWh,0.78
+Current Energy Bill £,109799.5715
+Optima Energy Bill £,110139.9006
+Savings,0%
+Optima System Type,Optima 125/289
+Power,125
+Capacity,289
+Capital Cost Value,64400
+Optima Annual Savings,-£340
+Full Expensing,"£16,100"
+Purchase - ROI ex. Full Expensing,-189.2
+Purchase - ROI inc. Full Expensing ,-141.9
+Basic ROI (years) *,-141.9
+Dynamic Forecast Savings *,"£5,888"
+Dynamic Savings,5%
+Dynamic ROI ex. Full Expensing,10.9
+Site Name,Eagles Meadow Wrexham (EEH Ventures)
+Address,"WILSON BOWDEN DEVELOPMENTS, UNIT 1A, DEBENHAMS, EAGLES MEADOW, WREXHAM, LL13 8DG"
+MPAN,1300060083293
+Est. Price (inc. install)," £64,400 "
+Repayment (p/m)," £1,003.75 "
+Deposit,0
+VAT,0
+Term (months),84
+Interest Rate,0.08
+Product,Hire Purchase
+Purchase - Savings Year 1,-£340.33 
+Purchase - Savings within Warranty,"-£51,557.94 "
+Purchase - Savings within Useful Life,"-£53,186.91 "
+Finance - Savings Year 1,"-£12,370.82 "
+Finance - Savings within Warranty,"-£73,973.13 "
+Finance - Savings within Useful Life,"-£76,852.10 "
+Finance - ROI ex. Full Expensing, 15.42 
+Finance - ROI inc. Full Expensing , 15.42 
+Current Demand Period,21-11-2024 to 20-11-2025
+Number of Days,366
+Created Date,24/11/2025
+Dynamic ROI inc. Full Expensing,8.2
+Contract End Date,31/03/2026
+Current Supplier,EDF
+GSP,_D
+Total Consumption,346349.7

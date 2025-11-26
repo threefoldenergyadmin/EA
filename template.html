@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Energy Assessment for {{site_name}}</title>
+  <style>
+  @page {
+    size: A4 portrait;
+    margin: 12mm;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+    color: #0f1f2f;
+    background: #f5f7fa;
+  }
+
+  .page {
+    background: #fff;
+    width: 210mm;
+    min-height: 297mm;
+    padding: 24mm 22mm;
+    margin: 0 auto 8mm;
+    position: relative;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+    page-break-after: always;
+  }
+
+  .page:last-of-type {
+    page-break-after: auto;
+  }
+
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #e5ecf5;
+    padding-bottom: 12px;
+    margin-bottom: 24px;
+  }
+
+  .brand {
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: #0c3c78;
+  }
+
+  .meta {
+    text-align: right;
+    font-size: 12px;
+    color: #5b6b7a;
+  }
+
+  .hero {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    align-items: flex-end;
+    margin-bottom: 28px;
+  }
+
+  .hero h1 {
+    margin: 0 0 8px;
+    font-size: 32px;
+  }
+
+  .address {
+    margin: 0 0 12px;
+    color: #4d5a68;
+  }
+
+  .pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .pill {
+    background: #e5f1ff;
+    color: #0c3c78;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .key-stat {
+    text-align: right;
+    background: linear-gradient(135deg, #0c3c78, #1f6feb);
+    color: #fff;
+    padding: 16px 20px;
+    border-radius: 12px;
+    min-width: 200px;
+  }
+
+  .key-stat .label {
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+
+  .key-stat .value {
+    font-size: 32px;
+    font-weight: 700;
+  }
+
+  .key-stat .sublabel {
+    font-size: 12px;
+    margin-top: 4px;
+  }
+
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .summary-card {
+    background: #f3f7fb;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid #e5ecf5;
+  }
+
+  .summary-card.highlight {
+    background: linear-gradient(135deg, #0c3c78, #1f6feb);
+    color: #fff;
+    border: none;
+  }
+
+  .summary-card .stat {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 4px 0;
+  }
+
+  .summary-card .muted {
+    color: #d8e5f2;
+    font-size: 12px;
+  }
+
+  .eyebrow {
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: #3c556b;
+    margin: 0 0 4px;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #e5ecf5;
+  }
+
+  .list .label {
+    color: #4d5a68;
+  }
+
+  .list .value {
+    font-weight: 600;
+  }
+
+  .finance-callout {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    background: #f0f5ff;
+    border: 1px solid #d8e4fb;
+    padding: 12px;
+    border-radius: 12px;
+  }
+
+  .panel {
+    background: #fdfefe;
+    border: 1px solid #e5ecf5;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 18px;
+  }
+
+  .profile-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .panel.two-col {
+    gap: 18px;
+  }
+
+  .finance-strip {
+    background: linear-gradient(90deg, #0c3c78, #1f6feb);
+    color: #fff;
+  }
+
+  .strip-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .strip-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px 12px;
+  }
+
+  .strip-grid .label {
+    display: block;
+    font-size: 12px;
+    color: #cde0ff;
+  }
+
+  .strip-grid .value {
+    font-weight: 700;
+  }
+
+  .panel-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .legend {
+    display: flex;
+    gap: 12px;
+    font-size: 12px;
+  }
+
+  .legend .dot {
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    border-radius: 999px;
+    margin-right: 6px;
+  }
+
+  .legend .dot.current {
+    background: #1f6feb;
+  }
+
+  .legend .dot.optima {
+    background: #1dd1a1;
+  }
+
+  .chart {
+    background: #fff;
+    border: 1px solid #e5ecf5;
+    border-radius: 12px;
+    padding: 10px;
+    min-height: 240px;
+    margin-bottom: 12px;
+  }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+
+  .data-table th,
+  .data-table td {
+    border: 1px solid #e5ecf5;
+    padding: 8px;
+    text-align: left;
+  }
+
+  .data-table thead {
+    background: #0c3c78;
+    color: #fff;
+  }
+
+  .data-table.compact th,
+  .data-table.compact td {
+    padding: 6px;
+  }
+
+  .callout {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    padding: 12px;
+    border-radius: 12px;
+    background: #f3f7fb;
+    border: 1px solid #e5ecf5;
+  }
+
+  .callout.muted {
+    background: #0c3c78;
+    color: #fff;
+    border: none;
+  }
+
+  .disclaimer {
+    font-size: 12px;
+    line-height: 1.5;
+    color: #4d5a68;
+    white-space: pre-line;
+  }
+
+  .svg-chart {
+    width: 100%;
+    height: auto;
+  }
+
+  .bar.current {
+    fill: #1f6feb;
+  }
+
+  .bar.optima {
+    fill: #1dd1a1;
+  }
+
+  .axis-label {
+    fill: #4d5a68;
+    font-size: 12px;
+  }
+
+  .grid-line {
+    stroke: #e5ecf5;
+    stroke-width: 1;
+  }
+
+  @media print {
+    body {
+      background: #fff;
+    }
+    .page {
+      box-shadow: none;
+      margin: 0;
+      width: auto;
+      min-height: auto;
+    }
+  }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="page-header">
+      <div class="brand">Threefold Energy Assessment</div>
+      <div class="meta">
+        <div>Created {{created_date}}</div>
+        <div>MPAN {{mpan}}</div>
+      </div>
+    </header>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Site</p>
+        <h1>{{site_name}}</h1>
+        <p class="address">{{address}}</p>
+        <div class="pill-row">
+          <span class="pill">{{current_supplier}}</span>
+          <span class="pill">Contract ends {{contract_end_date}}</span>
+          <span class="pill">GSP {{gsp}}</span>
+        </div>
+      </div>
+      <div class="key-stat">
+        <div class="label">Annual Consumption</div>
+        <div class="value">{{total_consumption_kwh}}</div>
+        <div class="sublabel">kWh over {{number_of_days}} days ({{current_demand_period}})</div>
+      </div>
+    </section>
+
+    <section class="summary-grid">
+      <div class="summary-card highlight">
+        <p class="eyebrow">Current bill</p>
+        <div class="stat">{{current_energy_bill_gbp}}</div>
+      </div>
+      <div class="summary-card highlight">
+        <p class="eyebrow">Optima bill</p>
+        <div class="stat">{{optima_energy_bill_gbp}}</div>
+      </div>
+      <div class="summary-card">
+        <p class="eyebrow">Savings</p>
+        <div class="stat">{{optima_annual_savings_gbp}}</div>
+        <div class="muted">{{savings_percent}} vs current</div>
+      </div>
+      <div class="summary-card">
+        <p class="eyebrow">Dynamic forecast</p>
+        <div class="stat">{{dynamic_forecast_savings_gbp}}</div>
+        <div class="muted">{{dynamic_savings_percent}} savings</div>
+      </div>
+    </section>
+
+    <section class="two-col">
+      <div>
+        <h2>Recommended system</h2>
+        <ul class="list">
+          <li><span class="label">System</span><span class="value">{{optima_system_type}}</span></li>
+          <li><span class="label">Power</span><span class="value">{{optima_power_kw}}</span></li>
+          <li><span class="label">Capacity</span><span class="value">{{optima_capacity_kwh}}</span></li>
+          <li><span class="label">Capital cost</span><span class="value">{{capital_cost_gbp}}</span></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Finance headline</h2>
+        <div class="finance-callout">
+          <div>
+            <div class="eyebrow">ROI incl. full expensing</div>
+            <div class="stat">{{dynamic_roi_inc_full_expensing_years}}</div>
+          </div>
+          <div>
+            <div class="eyebrow">Forecast savings</div>
+            <div class="stat">{{dynamic_forecast_savings_gbp}}</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="page">
+    <header class="page-header">
+      <div class="brand">Threefold Energy Assessment</div>
+      <div class="meta">
+        <div>Site {{site_name}}</div>
+        <div>MPAN {{mpan}}</div>
+      </div>
+    </header>
+
+    <section class="panel">
+      <h2>Load profile</h2>
+      <div class="profile-grid">
+        <div>
+          <h3>Current</h3>
+          <ul class="list">
+            <li><span class="label">Day</span><span class="value">{{units.current.day_kwh}}</span></li>
+            <li><span class="label">Night</span><span class="value">{{units.current.night_kwh}}</span></li>
+            <li><span class="label">Red</span><span class="value">{{units.current.red_kwh}}</span></li>
+            <li><span class="label">Amber</span><span class="value">{{units.current.amber_kwh}}</span></li>
+            <li><span class="label">Green</span><span class="value">{{units.current.green_kwh}}</span></li>
+            <li><span class="label">Capacity</span><span class="value">{{capacity.current_kva}}</span></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Optima</h3>
+          <ul class="list">
+            <li><span class="label">Day</span><span class="value">{{units.optima.day_kwh}}</span></li>
+            <li><span class="label">Night</span><span class="value">{{units.optima.night_kwh}}</span></li>
+            <li><span class="label">Red</span><span class="value">{{units.optima.red_kwh}}</span></li>
+            <li><span class="label">Amber</span><span class="value">{{units.optima.amber_kwh}}</span></li>
+            <li><span class="label">Green</span><span class="value">{{units.optima.green_kwh}}</span></li>
+            <li><span class="label">Capacity</span><span class="value">{{capacity.optima_kva}}</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel two-col">
+      <div>
+        <h2>Tariffs (current)</h2>
+        <ul class="list">
+          <li><span class="label">Day</span><span class="value">{{tariff.current.day_p_kwh}}</span></li>
+          <li><span class="label">Night</span><span class="value">{{tariff.current.night_p_kwh}}</span></li>
+          <li><span class="label">Peak</span><span class="value">{{tariff.current.peak_p_kwh}}</span></li>
+          <li><span class="label">Standing</span><span class="value">{{tariff.current.standing_p_day}}</span></li>
+          <li><span class="label">Availability</span><span class="value">{{tariff.current.availability_p_kva_day}}</span></li>
+          <li><span class="label">CCL</span><span class="value">{{tariff.current.ccl_p_kwh}}</span></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Tariffs (optima)</h2>
+        <ul class="list">
+          <li><span class="label">Day</span><span class="value">{{tariff.optima.day_p_kwh}}</span></li>
+          <li><span class="label">Night</span><span class="value">{{tariff.optima.night_p_kwh}}</span></li>
+          <li><span class="label">Peak</span><span class="value">{{tariff.optima.peak_p_kwh}}</span></li>
+          <li><span class="label">Standing</span><span class="value">{{tariff.optima.standing_p_day}}</span></li>
+          <li><span class="label">Availability</span><span class="value">{{tariff.optima.availability_p_kva_day}}</span></li>
+          <li><span class="label">CCL</span><span class="value">{{tariff.optima.ccl_p_kwh}}</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="panel finance-strip">
+      <div class="strip-heading">
+        <div class="eyebrow">Finance summary</div>
+        <div class="stat">{{finance.product}}</div>
+      </div>
+      <div class="strip-grid">
+        <div><span class="label">Term</span><span class="value">{{finance.term_months}}</span></div>
+        <div><span class="label">Interest</span><span class="value">{{finance.interest_rate}}</span></div>
+        <div><span class="label">Repayment</span><span class="value">{{finance.repayment_gbp_pm}}</span></div>
+        <div><span class="label">Deposit</span><span class="value">{{finance.deposit_gbp}}</span></div>
+        <div><span class="label">VAT</span><span class="value">{{finance.vat_gbp}}</span></div>
+        <div><span class="label">Estimated price</span><span class="value">{{finance.est_price_gbp}}</span></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="page">
+    <header class="page-header">
+      <div class="brand">Threefold Energy Assessment</div>
+      <div class="meta">
+        <div>Site {{site_name}}</div>
+        <div>MPAN {{mpan}}</div>
+      </div>
+    </header>
+
+    <section class="panel">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">Annual energy cost by band</p>
+          <h2>Current vs optima</h2>
+        </div>
+        <div class="legend">
+          <span class="legend-item"><span class="dot current"></span>Current</span>
+          <span class="legend-item"><span class="dot optima"></span>Optima</span>
+        </div>
+      </div>
+      <div class="chart" id="chart-a" aria-label="Annual energy cost chart"></div>
+      <table class="data-table">
+        <thead>
+          <tr><th>Band</th><th>Tariff (p/kWh)</th><th>Cost current</th><th>Cost optima</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Day</td><td>{{tariff.current.day}}</td><td>{{cost.current.day}}</td><td>{{cost.optima.day}}</td></tr>
+          <tr><td>Night</td><td>{{tariff.current.night}}</td><td>{{cost.current.night}}</td><td>{{cost.optima.night}}</td></tr>
+          <tr><td>Red</td><td>{{tariff.current.red}}</td><td>{{cost.current.red}}</td><td>{{cost.optima.red}}</td></tr>
+          <tr><td>Amber</td><td>{{tariff.current.amber}}</td><td>{{cost.current.amber}}</td><td>{{cost.optima.amber}}</td></tr>
+          <tr><td>Green</td><td>{{tariff.current.green}}</td><td>{{cost.current.green}}</td><td>{{cost.optima.green}}</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">Forecasted savings</p>
+          <h2>Scenario comparison</h2>
+        </div>
+      </div>
+      <div class="chart" id="chart-b" aria-label="Savings trajectory chart"></div>
+      <table class="data-table compact">
+        <thead>
+          <tr>
+            <th colspan="2">Purchase</th>
+            <th colspan="2">Finance</th>
+            <th colspan="3">Dynamic</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Year 1</td><td>{{purchase_savings_year_1}}</td><td>Year 1</td><td>{{finance_savings_year_1}}</td><td>Year 1</td><td colspan="2">{{dynamic_savings_percent}}</td></tr>
+          <tr><td>Warranty</td><td>{{purchase_savings_warranty}}</td><td>Warranty</td><td>{{finance_savings_warranty}}</td><td>Forecast</td><td colspan="2">{{dynamic_forecast_savings}}</td></tr>
+          <tr><td>Useful life</td><td>{{purchase_savings_useful_life}}</td><td>Useful life</td><td>{{finance_savings_useful_life}}</td><td>ROI ex full expensing</td><td colspan="2">{{dynamic_roi_ex_full_expensing}}</td></tr>
+          <tr><td>ROI ex full expensing</td><td>{{purchase_roi_ex_full_expensing}}</td><td>ROI ex full expensing</td><td>{{finance_roi_ex_full_expensing}}</td><td>ROI inc full expensing</td><td colspan="2">{{dynamic_roi_inc_full_expensing}}</td></tr>
+          <tr><td>ROI inc full expensing</td><td>{{purchase_roi_inc_full_expensing}}</td><td>ROI inc full expensing</td><td>{{finance_roi_inc_full_expensing}}</td><td>Full expensing value</td><td colspan="2">{{full_expensing_value}}</td></tr>
+          <tr><td>Basic ROI</td><td>{{basic_roi_years}}</td><td>Finance payment</td><td>{{finance_payment_label}}</td><td colspan="2">Finance total</td><td>{{finance_payment_total}}</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+
+  <div class="page">
+    <header class="page-header">
+      <div class="brand">Threefold Energy Assessment</div>
+      <div class="meta">
+        <div>Site {{site_name}}</div>
+        <div>MPAN {{mpan}}</div>
+      </div>
+    </header>
+
+    <section class="panel">
+      <h2>Important information</h2>
+      <p class="disclaimer">{{static_disclaimer_text}}</p>
+      <div class="callout muted">
+        <div>
+          <div class="eyebrow">Annual savings</div>
+          <div class="stat">{{optima_annual_savings_gbp}}</div>
+        </div>
+        <div>
+          <div class="eyebrow">Dynamic savings</div>
+          <div class="stat">{{dynamic_savings_percent}}</div>
+        </div>
+        <div>
+          <div class="eyebrow">ROI</div>
+          <div class="stat">{{dynamic_roi_inc_full_expensing_years}}</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script id="chart-data" type="application/json">
+  {
+    "costBands": {
+      "labels": {{costBands.labels}},
+      "current": {{costBands.current.values}},
+      "optima": {{costBands.optima.values}}
+    },
+    "chartYears": {{chartYears}},
+    "chartSeries": {
+      "finance_payment": {{chartSeries.finance_payment}},
+      "finance_optima_cum_savings": {{chartSeries.finance_optima_cum_savings}},
+      "finance_dynamic_forecast_savings": {{chartSeries.finance_dynamic_forecast_savings}},
+      "purchase_optima_cum_savings": {{chartSeries.purchase_optima_cum_savings}},
+      "purchase_dynamic_forecast_savings": {{chartSeries.purchase_dynamic_forecast_savings}}
+    }
+  }
+  </script>
+  <script>
+    function parseChartData() {
+      const el = document.getElementById('chart-data');
+      if (!el) return null;
+      try {
+        return JSON.parse(el.textContent);
+      } catch (err) {
+        console.error('Invalid chart data', err);
+        return null;
+      }
+    }
+
+    function renderCostBands(data) {
+      const container = document.getElementById('chart-a');
+      if (!container || !data) return;
+      const labels = data.costBands.labels || [];
+      const current = data.costBands.current || [];
+      const optima = data.costBands.optima || [];
+      const width = container.clientWidth || 700;
+      const height = 280;
+      const padding = { top: 20, right: 20, bottom: 40, left: 60 };
+      const maxValue = Math.max(...current, ...optima, 1);
+      const barWidth = (width - padding.left - padding.right) / labels.length / 2 - 10;
+
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+      svg.setAttribute('role', 'img');
+      svg.classList.add('svg-chart');
+
+      labels.forEach((label, i) => {
+        const xBase = padding.left + i * ((width - padding.left - padding.right) / labels.length);
+        const currentHeight = (current[i] || 0) / maxValue * (height - padding.top - padding.bottom);
+        const optimaHeight = (optima[i] || 0) / maxValue * (height - padding.top - padding.bottom);
+
+        const currentRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        currentRect.setAttribute('x', xBase);
+        currentRect.setAttribute('y', height - padding.bottom - currentHeight);
+        currentRect.setAttribute('width', barWidth);
+        currentRect.setAttribute('height', currentHeight);
+        currentRect.setAttribute('class', 'bar current');
+        svg.appendChild(currentRect);
+
+        const optimaRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        optimaRect.setAttribute('x', xBase + barWidth + 10);
+        optimaRect.setAttribute('y', height - padding.bottom - optimaHeight);
+        optimaRect.setAttribute('width', barWidth);
+        optimaRect.setAttribute('height', optimaHeight);
+        optimaRect.setAttribute('class', 'bar optima');
+        svg.appendChild(optimaRect);
+
+        const labelText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        labelText.setAttribute('x', xBase + barWidth);
+        labelText.setAttribute('y', height - padding.bottom + 20);
+        labelText.setAttribute('text-anchor', 'middle');
+        labelText.setAttribute('class', 'axis-label');
+        labelText.textContent = label;
+        svg.appendChild(labelText);
+      });
+
+      for (let i = 0; i <= 4; i++) {
+        const value = maxValue * i / 4;
+        const y = height - padding.bottom - (height - padding.top - padding.bottom) * i / 4;
+        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        line.setAttribute('x1', padding.left - 10);
+        line.setAttribute('x2', width - padding.right);
+        line.setAttribute('y1', y);
+        line.setAttribute('y2', y);
+        line.setAttribute('class', 'grid-line');
+        svg.appendChild(line);
+
+        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        text.setAttribute('x', padding.left - 15);
+        text.setAttribute('y', y + 4);
+        text.setAttribute('text-anchor', 'end');
+        text.setAttribute('class', 'axis-label');
+        text.textContent = `£${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
+        svg.appendChild(text);
+      }
+
+      container.innerHTML = '';
+      container.appendChild(svg);
+    }
+
+    function renderSavingsChart(data) {
+      const container = document.getElementById('chart-b');
+      if (!container || !data) return;
+      const years = data.chartYears || [];
+      const series = data.chartSeries || {};
+      const width = container.clientWidth || 700;
+      const height = 300;
+      const padding = { top: 20, right: 20, bottom: 40, left: 60 };
+      const seriesNames = Object.keys(series);
+      const colors = {
+        finance_payment: '#1F6FEB',
+        finance_optima_cum_savings: '#1DD1A1',
+        finance_dynamic_forecast_savings: '#00B894',
+        purchase_optima_cum_savings: '#6C5CE7',
+        purchase_dynamic_forecast_savings: '#E17055'
+      };
+
+      let maxValue = 1;
+      seriesNames.forEach((name) => {
+        (series[name] || []).forEach((v) => {
+          if (v !== null && v !== undefined) {
+            maxValue = Math.max(maxValue, Number(v));
+          }
+        });
+      });
+
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+      svg.setAttribute('role', 'img');
+      svg.classList.add('svg-chart');
+
+      const plotWidth = width - padding.left - padding.right;
+      const plotHeight = height - padding.top - padding.bottom;
+
+      function xPos(i) {
+        return padding.left + (plotWidth / Math.max(years.length - 1, 1)) * i;
+      }
+      function yPos(v) {
+        const val = Number(v || 0);
+        return padding.top + plotHeight - (val / maxValue) * plotHeight;
+      }
+
+      for (let i = 0; i <= 4; i++) {
+        const value = maxValue * i / 4;
+        const y = yPos(value);
+        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        line.setAttribute('x1', padding.left);
+        line.setAttribute('x2', width - padding.right);
+        line.setAttribute('y1', y);
+        line.setAttribute('y2', y);
+        line.setAttribute('class', 'grid-line');
+        svg.appendChild(line);
+
+        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        text.setAttribute('x', padding.left - 10);
+        text.setAttribute('y', y + 4);
+        text.setAttribute('text-anchor', 'end');
+        text.setAttribute('class', 'axis-label');
+        text.textContent = `£${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
+        svg.appendChild(text);
+      }
+
+      years.forEach((year, i) => {
+        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        text.setAttribute('x', xPos(i));
+        text.setAttribute('y', height - padding.bottom + 20);
+        text.setAttribute('text-anchor', 'middle');
+        text.setAttribute('class', 'axis-label');
+        text.textContent = year;
+        svg.appendChild(text);
+      });
+
+      seriesNames.forEach((name) => {
+        const values = series[name] || [];
+        const pathParts = [];
+        values.forEach((v, i) => {
+          if (v === null || v === undefined || v === '' || Number.isNaN(Number(v))) return;
+          const x = xPos(i);
+          const y = yPos(v);
+          pathParts.push(`${pathParts.length === 0 ? 'M' : 'L'}${x},${y}`);
+        });
+        if (!pathParts.length) return;
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', pathParts.join(' '));
+        path.setAttribute('fill', 'none');
+        path.setAttribute('stroke', colors[name] || '#888');
+        path.setAttribute('stroke-width', '3');
+        svg.appendChild(path);
+      });
+
+      container.innerHTML = '';
+      container.appendChild(svg);
+    }
+
+    const chartData = parseChartData();
+    renderCostBands(chartData);
+    renderSavingsChart(chartData);
+  </script>
+</body>
+</html>
