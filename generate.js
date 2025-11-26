@@ -4,8 +4,8 @@ import path from 'path';
 
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
-const MAIN_CSV = process.env.MAIN_CSV || '/mnt/data/Technical and Financial Output.csv';
-const CHART_CSV = process.env.CHART_CSV || '/mnt/data/Outputs - Chart Financed (1).csv';
+const MAIN_CSV = process.env.MAIN_CSV || '/mnt/Technical and Financial Output.csv';
+const CHART_CSV = process.env.CHART_CSV || '/mnt/Outputs - Chart Financed (1).csv';
 const TEMPLATE_PATH = process.env.TEMPLATE_PATH || path.join(__dirname, 'template.html');
 const OUTPUT_DIR = process.env.OUTPUT_DIR || path.join(__dirname, 'output');
 
